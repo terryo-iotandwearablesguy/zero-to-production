@@ -71,6 +71,43 @@ brew install michaeleisel/zld/zld
 ```
 cargo install --version=0.5.7 sqlx-cli --no-default-features --features postgres
 ```
+**Note if you don't have Xcode installed, or it's not up to date you may see this error**
+
+```text
+xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
+make: *** [build_homebrew] Error 1
+
+If reporting this issue please do so at (not Homebrew/brew or Homebrew/core):
+https://github.com/michaeleisel/homebrew-zld/issues
+```
+
+The issue happens when xcode-select developer directory was pointing to /Library/Developer/CommandLineTools when a full regular Xcode was required (happens when CommandLineTools are installed after Xcode)
+
+If you don't have Xcode already installed or an older copy please do the following:
+
+1.	Install Xcode (get it from https://appstore.com/mac/apple/xcode) if you don't have it yet.
+2. 	Accept the Terms and Conditions. Command: 
+
+```bash
+sudo xcodebuild -license accept  
+```
+
+4.	Ensure Xcode app is in the /Applications directory (NOT /Users/{user}/Applications).
+5.	Point xcode-select to the Xcode app Developer directory using the following command:
+
+```bash
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```
+7. 	Then finally the command: 
+
+```bash
+brew install michaeleisel/zld/zld
+```
+
+It's improtant to make sure your Xcode app path is correct. 
+
+  - Correct Xcode: /Applications/Xcode.app/Contents/Developer
+  - Incorrrect Xcode: /Users/{username}/Applications/Xcode.app/Contents/Developer
 
 ## How to build
 
